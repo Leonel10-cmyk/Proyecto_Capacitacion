@@ -6,7 +6,7 @@ services:
     region: oregon
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:sqlserver://db71246.databaseasp.net:1433;databaseName=db71246;encrypt=true;trustServerCertificate=true
+        value: jdbc:sqlserver://db71246.public.databaseasp.net:1433;databaseName=db71246;encrypt=true;trustServerCertificate=true
       - key: SPRING_DATASOURCE_USERNAME
         value: db71246
       - key: SPRING_DATASOURCE_PASSWORD
