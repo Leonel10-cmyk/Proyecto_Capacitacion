@@ -23,6 +23,11 @@ public class PublicController {
         this.participanteService = participanteService;
     }
 
+    @GetMapping("/ping")
+    public ResponseEntity<Map<String, String>> ping() {
+        return ResponseEntity.ok(Map.of("status", "ok", "message", "pong"));
+    }
+
     @PostMapping(value = "/registro", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<Map<String, Object>>> registrar(
             @RequestParam("nombre") String nombre,

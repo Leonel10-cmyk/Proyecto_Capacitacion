@@ -17,3 +17,5 @@ services:
         sync: false
       - key: JWT_SECRET
         value: EbdnCapacitacionMaestros2026_ClaveSecretaSeguraJwtKey987654321
+      - key: APP_URL
+        value: https://registro-ebdn1.onrender.com
