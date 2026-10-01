@@ -1,0 +1,14 @@
+target/
+.git/
+.gitignore
+.idea/
+.settings/
+.classpath
+.project
+*.iml
+bin/
+.vscode/
+uploads/*
+!uploads/.gitkeep
+.env*
+credentials.json

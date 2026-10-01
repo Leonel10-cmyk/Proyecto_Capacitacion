@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción Oficial - Capacitación Maestros EBDN 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen py-8 px-4 flex flex-col items-center justify-start">
+
+    <!-- Top Navigation / Acceso Admin -->
+    <div class="w-full max-w-3xl flex justify-between items-center mb-6 px-2">
+        <div class="flex items-center gap-3">
+            <span class="w-11 h-11 bg-gradient-to-tr from-amber-400 to-orange-500 text-white rounded-2xl flex items-center justify-center text-xl shadow-md shadow-orange-500/20">
+                <i class="fa-solid fa-shapes"></i>
+            </span>
+            <div>
+                <h2 class="text-slate-800 font-extrabold text-lg leading-tight font-heading flex items-center gap-1.5">
+                    <span>EBDN Capacitación 2026</span>
+                    <span class="text-sm">🎈</span>
+                </h2>
+                <p class="text-xs text-slate-500 font-medium">Escuela Bíblica de Niños • Formando con Amor</p>
+            </div>
+        </div>
+        <a href="login.html" class="glass-panel text-xs sm:text-sm text-indigo-600 hover:text-indigo-800 font-bold px-4 py-2 rounded-2xl transition-all border border-indigo-100 hover:border-indigo-300 shadow-sm flex items-center gap-2 bg-white/90">
+            <i class="fa-solid fa-lock text-xs text-indigo-500"></i>
+            <span>Acceso Admin</span>
+        </a>
+    </div>
+
+    <!-- Contenedor Principal del Formulario -->
+    <div class="glass-panel w-full max-w-3xl rounded-3xl p-6 sm:p-10 animate-fade-in relative shadow-xl border border-white">
+        
+        <div class="relative z-10">
+            <!-- Encabezado Alegre -->
+            <div class="text-center mb-8">
+                <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-3 border border-amber-200 shadow-sm">
+                    <i class="fa-solid fa-sparkles text-amber-500"></i>
+                    <span>¡Bienvenidos Maestros y Líderes!</span>
+                    <i class="fa-solid fa-heart text-pink-500"></i>
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-800 font-heading leading-tight">
+                    Inscripción a la Capacitación
+                </h1>
+                <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-xl mx-auto">
+                    Completa tus datos con alegría y adjunta tu comprobante de pago para asegurar tu participación en este gran evento formativo.
+                </p>
+            </div>
+
+            <!-- Notificación Alerta -->
+            <div id="alertBox" class="hidden mb-6 p-4 rounded-2xl text-sm font-semibold transition-all"></div>
+
+            <form id="registroForm" class="space-y-6" enctype="multipart/form-data">
+                
+                <!-- Sección 1: Datos Personales del Maestro -->
+                <div class="bg-white rounded-2xl p-5 sm:p-6 space-y-4 border border-slate-100 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-600 flex items-center gap-2 font-heading">
+                            <span class="w-6 h-6 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+                            <span>Datos del Maestro / Participante</span>
+                        </h3>
+                        <span class="text-[11px] font-semibold text-slate-400">* Campos requeridos</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Nombres *</label>
+                            <input type="text" name="nombre" id="nombre" required placeholder="Ej. Ana Lucía"
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Apellidos *</label>
+                            <input type="text" name="apellidos" id="apellidos" required placeholder="Ej. Flores Castillo"
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-400">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">DNI / Documento *</label>
+                            <input type="text" name="dni" id="dni" required maxlength="15" placeholder="Número de DNI"
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">WhatsApp / Teléfono *</label>
+                            <input type="tel" name="telefono" id="telefono" required placeholder="Ej. 987654321"
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Correo Electrónico *</label>
+                            <input type="email" name="correo" id="correo" required placeholder="tu.correo@gmail.com"
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-400">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Iglesia o Congregación</label>
+                            <input type="text" name="iglesia" id="iglesia" placeholder="Ej. IEP Canto Grande"
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Cargo / Ministerio con Niños</label>
+                            <input type="text" name="cargo" id="cargo" placeholder="Ej. Maestra EBDN, Directora, Apoyo"
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección 2: Modalidad y Selección de Pago -->
+                <div class="bg-white rounded-2xl p-5 sm:p-6 space-y-5 border border-slate-100 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-purple-600 flex items-center gap-2 font-heading">
+                            <span class="w-6 h-6 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-wallet"></i>
+                            </span>
+                            <span>Modalidad e Información de Pago</span>
+                        </h3>
+                        <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full border border-purple-100">
+                            Paso 2 de 2
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Modalidad de Inscripción *</label>
+                            <select name="modalidad" id="modalidadSelect" required
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-purple-400 bg-white cursor-pointer">
+                                <option value="Presencial">Presencial (S/ 25.00)</option>
+                                <option value="Virtual">Virtual (S/ 20.00)</option>
+                                <option value="Solo manual">Solo manual físico (S/ 35.00)</option>
+                                <option value="Presencial + manual">Presencial + Manual físico (S/ 60.00)</option>
+                                <option value="Virtual + manual">Virtual + Manual físico (S/ 55.00)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Medio de Pago a Utilizar *</label>
+                            <select name="medioPago" id="medioPago" required
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-purple-400 bg-white cursor-pointer">
+                                <option value="Yape" selected>💜 Yape (QR y Teléfono)</option>
+                                <option value="Plin">💙 Plin (QR y Teléfono)</option>
+                                <option value="PayPal">🌐 PayPal (Enlace directo)</option>
+                                <option value="Transferencia BCP">🏦 Transferencia BCP</option>
+                                <option value="Transferencia BBVA">🏦 Transferencia BBVA</option>
+                                <option value="Efectivo">💵 Pago en Efectivo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- CAJA INTERACTIVA DINÁMICA DE INSTRUCCIONES DE PAGO -->
+                    <div id="paymentInstructionsBox" class="rounded-2xl p-4 sm:p-5 border transition-all">
+                        <!-- Contenido dinámico inyectado por JS (Yape, Plin, PayPal, Cuentas Bancarias) -->
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Monto Pagado en este Voucher (S/) *</label>
+                            <div class="relative">
+                                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">S/</span>
+                                <input type="number" step="0.01" min="0" name="montoPago" id="montoPago" required placeholder="25.00"
+                                    class="glass-input w-full rounded-xl pl-9 pr-4 py-2.5 text-sm font-bold text-slate-800 focus:ring-2 focus:ring-purple-400">
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-1">Si pagas en cuotas, puedes registrar el monto inicial aquí.</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Número de Operación / Referencia</label>
+                            <input type="text" name="codigoOperacion" id="codigoOperacion" placeholder="Ej. 12345678"
+                                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-purple-400">
+                        </div>
+                    </div>
+
+                    <!-- Subida de Comprobante -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5">Adjuntar Voucher o Comprobante (Foto / PDF)</label>
+                        <div class="border-2 border-dashed border-indigo-200 hover:border-indigo-400 transition-colors rounded-2xl p-4 sm:p-5 text-center cursor-pointer bg-indigo-50/40 relative">
+                            <input type="file" name="comprobante" id="comprobante" accept="image/*,.pdf" class="absolute inset-0 opacity-0 cursor-pointer">
+                            <div class="flex flex-col items-center">
+                                <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-2">
+                                    <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
+                                </div>
+                                <span id="fileLabel" class="text-xs text-slate-700 font-bold">Haz clic aquí o arrastra tu comprobante de pago</span>
+                                <span class="text-[11px] text-slate-500 mt-1">Formatos permitidos: JPG, PNG o PDF (Máximo 10MB)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón de Envío Alegre -->
+                <button type="submit" id="submitBtn"
+                    class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-extrabold text-base py-4 px-6 rounded-2xl shadow-lg shadow-purple-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span id="btnText">Enviar y Confirmar Mi Inscripción</span>
+                    <span id="btnLoader" class="loader hidden ml-2 border-t-white"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Éxito Alegre -->
+    <div id="successModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-8 text-center animate-fade-in relative shadow-2xl border border-slate-100">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 font-heading mb-1">¡Inscripción Exitosa! 🎉</h3>
+            <p class="text-slate-600 text-xs sm:text-sm mb-5" id="successMessage">Tus datos han sido registrados en la base de datos oficial de la Capacitación.</p>
+            
+            <div class="bg-slate-50 rounded-2xl p-4 text-left text-xs space-y-2 mb-6 border border-slate-200" id="successDetails">
+            </div>
+
+            <button onclick="cerrarModalExito()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-colors shadow-md shadow-indigo-600/20">
+                ¡Entendido, muchas gracias!
+            </button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

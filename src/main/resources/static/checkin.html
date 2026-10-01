@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Asistencia QR - Capacitación EBDN</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen p-4 flex flex-col items-center justify-center">
+    
+    <!-- Top Nav Back Link -->
+    <div class="w-full max-w-md flex justify-between items-center mb-4">
+        <a href="admin-tabla.html" class="text-xs font-bold text-indigo-700 hover:text-indigo-900 flex items-center gap-1.5 bg-white/90 px-3 py-1.5 rounded-2xl border border-indigo-100 shadow-sm">
+            <i class="fa-solid fa-arrow-left"></i> <span>Volver a Hoja de Datos</span>
+        </a>
+        <button onclick="logout()" class="text-xs font-bold text-rose-600 hover:text-rose-800 bg-white/90 px-3 py-1.5 rounded-2xl border border-rose-100 shadow-sm">
+            <i class="fa-solid fa-right-from-bracket"></i> Salir
+        </button>
+    </div>
+
+    <div class="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 text-center animate-fade-in border border-white shadow-xl">
+        <div class="w-14 h-14 bg-gradient-to-tr from-pink-500 to-purple-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl shadow-md shadow-pink-500/20">
+            <i class="fa-solid fa-qrcode"></i>
+        </div>
+        <h1 class="text-2xl font-black text-slate-800 font-heading mb-1">Escáner de Asistencia</h1>
+        <p class="text-xs text-slate-500 mb-6 font-medium">Apunta la cámara al código QR del ticket del maestro o participante</p>
+
+        <!-- Selector de Día de Asistencia -->
+        <div class="mb-5 flex items-center justify-between bg-indigo-50/70 border border-indigo-100 rounded-2xl p-3">
+            <label for="daySelect" class="text-xs font-bold text-indigo-950">Día de Capacitación:</label>
+            <select id="daySelect" class="bg-white text-indigo-950 font-bold border border-indigo-200 rounded-xl px-3 py-1.5 text-xs focus:ring-2 focus:ring-indigo-400 cursor-pointer outline-none shadow-xs">
+                <option value="1" selected>Día 1</option>
+                <option value="2">Día 2</option>
+            </select>
+        </div>
+        
+        <!-- Contenedor del Lector QR -->
+        <div id="reader" class="w-full bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 mb-5 min-h-[240px] shadow-inner"></div>
+
+        <!-- Búsqueda Manual alternativa por DNI -->
+        <div class="mb-5 bg-white p-3.5 rounded-2xl border border-slate-100 shadow-sm">
+            <p class="text-[11px] text-slate-500 font-semibold mb-2">¿Problemas con la cámara? Ingresa el DNI:</p>
+            <div class="flex gap-2">
+                <input type="text" id="manualDni" placeholder="Número de DNI..." 
+                    class="glass-input flex-1 rounded-xl px-3 py-1.5 text-xs font-bold focus:ring-2 focus:ring-indigo-400">
+                <button onclick="marcarManual()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-1.5 rounded-xl text-xs transition-colors shadow-sm">
+                    Registrar
+                </button>
+            </div>
+        </div>
+        
+        <!-- Cuadro de Resultados -->
+        <div id="resultBox" class="hidden p-4 rounded-2xl mb-4 transition-all border shadow-sm">
+            <div id="statusIcon" class="w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-2 text-xl"></div>
+            <h3 id="personName" class="text-lg font-black text-slate-800 font-heading mb-1"></h3>
+            <p id="resultMessage" class="text-xs font-bold"></p>
+        </div>
+
+        <button id="resetBtn" onclick="reiniciarEscaneo()" class="hidden w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-2xl text-xs transition-colors shadow-sm">
+            Escanear Siguiente Ticket
+        </button>
+    </div>
+
+    <!-- HTML5 QRCode library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="js/checkin.js"></script>
+</body>
+</html>

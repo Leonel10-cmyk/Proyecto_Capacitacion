@@ -1,0 +1,37 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDEs (IntelliJ IDEA, Eclipse, Spring Tool Suite, VS Code, NetBeans)
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+bin/
+.vscode/
+
+# Archivos subidos y comprobantes locales
+uploads/
+backend/temp/*
+!backend/temp/.gitkeep
+
+# Variables de entorno y credenciales sensibles
+.env
+.env.*
+credentials.json
+
+# Logs y depuración
+*.log
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db

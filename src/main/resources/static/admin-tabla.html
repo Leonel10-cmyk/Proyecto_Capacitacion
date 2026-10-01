@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoja de Datos - Panel de Administración EBDN</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen p-4 sm:p-6 lg:p-8 flex flex-col justify-start">
+
+    <!-- Top Navbar Alegre -->
+    <header class="w-full max-w-7xl mx-auto glass-panel rounded-3xl px-6 py-4 mb-6 flex flex-wrap justify-between items-center gap-4 border border-white shadow-md">
+        <div class="flex items-center gap-3">
+            <span class="w-12 h-12 bg-gradient-to-tr from-indigo-500 to-purple-600 text-white p-2.5 rounded-2xl flex items-center justify-center text-xl shadow-md shadow-indigo-500/20">
+                <i class="fa-solid fa-table-list"></i>
+            </span>
+            <div>
+                <h1 class="text-slate-800 font-black text-lg sm:text-xl leading-tight font-heading flex items-center gap-2">
+                    <span>Hoja de Datos de Maestros</span>
+                    <span class="text-sm">📖</span>
+                </h1>
+                <p class="text-xs text-slate-500 font-semibold">Almacenamiento oficial en Microsoft SQL Server • EBDN 2026</p>
+            </div>
+        </div>
+
+        <nav class="flex items-center gap-2 sm:gap-3 flex-wrap text-xs sm:text-sm">
+            <a href="admin-tabla.html" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-database"></i> <span>Hoja de Datos</span>
+            </a>
+            <a href="admin-pagos.html" class="text-slate-600 hover:text-indigo-600 font-bold px-3 py-2 rounded-xl hover:bg-indigo-50 transition-colors flex items-center gap-1.5">
+                <i class="fa-solid fa-receipt text-purple-600"></i> <span>Conciliación Yape</span>
+            </a>
+            <a href="checkin.html" class="text-slate-600 hover:text-indigo-600 font-bold px-3 py-2 rounded-xl hover:bg-indigo-50 transition-colors flex items-center gap-1.5">
+                <i class="fa-solid fa-qrcode text-pink-600"></i> <span>Check-in QR</span>
+            </a>
+            <a href="index.html" target="_blank" class="text-slate-600 hover:text-indigo-600 font-bold px-3 py-2 rounded-xl hover:bg-indigo-50 transition-colors flex items-center gap-1.5">
+                <i class="fa-solid fa-arrow-up-right-from-square text-amber-500"></i> <span>Formulario</span>
+            </a>
+
+            <!-- Usuario y Logout -->
+            <div class="border-l border-slate-200 pl-3 flex items-center gap-2.5">
+                <div class="text-right hidden md:block">
+                    <span class="text-xs font-bold text-slate-800 block leading-tight" id="userDisplayName">Administrador</span>
+                    <span class="text-[10px] text-emerald-600 font-bold">● En Línea</span>
+                </div>
+                <button onclick="logout()" class="text-rose-600 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 font-bold px-3 py-1.5 rounded-xl transition-colors flex items-center gap-1 border border-rose-200">
+                    <i class="fa-solid fa-right-from-bracket"></i> <span class="hidden sm:inline">Salir</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-7xl mx-auto space-y-6">
+
+        <!-- Stat Cards Alegres -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-panel rounded-3xl p-5 border border-white flex items-center justify-between shadow-sm">
+                <div>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Inscritos</p>
+                    <h3 class="text-2xl font-black text-indigo-700 mt-1 font-heading" id="statInscritos">0</h3>
+                    <span class="text-[10px] text-slate-400 font-medium">Registrados en el sistema</span>
+                </div>
+                <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-inner">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-5 border border-white flex items-center justify-between shadow-sm">
+                <div>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Recaudado</p>
+                    <h3 class="text-2xl font-black text-emerald-600 mt-1 font-heading" id="statRecaudado">S/ 0.00</h3>
+                    <span class="text-[10px] text-emerald-600 font-bold">Ingresos confirmados</span>
+                </div>
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl shadow-inner">
+                    <i class="fa-solid fa-sack-dollar"></i>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-5 border border-white flex items-center justify-between shadow-sm">
+                <div>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Saldo por Cobrar</p>
+                    <h3 class="text-2xl font-black text-amber-500 mt-1 font-heading" id="statDeuda">S/ 0.00</h3>
+                    <span class="text-[10px] text-amber-600 font-medium">Cuotas pendientes</span>
+                </div>
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl shadow-inner">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl p-5 border border-white flex items-center justify-between shadow-sm">
+                <div>
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Asistencia D1 / D2</p>
+                    <h3 class="text-2xl font-black text-purple-600 mt-1 font-heading" id="statAsistencia">0 / 0</h3>
+                    <span class="text-[10px] text-purple-500 font-medium">Marcados con QR</span>
+                </div>
+                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-xl shadow-inner">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Filtros y Verificación de Fechas -->
+        <div class="glass-panel rounded-3xl p-5 border border-white shadow-sm space-y-4">
+            
+            <!-- Fila Superior: Buscador y Filtros Rápidos -->
+            <div class="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between">
+                
+                <!-- Buscador de texto -->
+                <div class="relative flex-1">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar por Nombre, DNI, Iglesia..."
+                        class="glass-input w-full rounded-2xl pl-11 pr-4 py-2.5 text-xs sm:text-sm font-medium focus:ring-2 focus:ring-indigo-400">
+                </div>
+
+                <!-- Filtros desplegables -->
+                <div class="flex flex-wrap sm:flex-nowrap gap-2 items-center">
+                    <select id="filterModalidad" class="glass-input rounded-2xl px-3 py-2 text-xs font-semibold text-slate-700 cursor-pointer outline-none">
+                        <option value="">Todas las modalidades</option>
+                        <option value="Presencial">Presencial (S/ 25)</option>
+                        <option value="Virtual">Virtual (S/ 20)</option>
+                        <option value="Solo manual">Solo manual (S/ 35)</option>
+                        <option value="Presencial + manual">Presencial + Manual (S/ 60)</option>
+                        <option value="Virtual + manual">Virtual + Manual (S/ 55)</option>
+                    </select>
+
+                    <select id="filterEstadoPago" class="glass-input rounded-2xl px-3 py-2 text-xs font-semibold text-slate-700 cursor-pointer outline-none">
+                        <option value="">Todos los pagos</option>
+                        <option value="Pago Completo">Pago Completo</option>
+                        <option value="Falta Pagar">Con Deuda (Cuotas)</option>
+                        <option value="Pendiente">Sin Pago / Pendiente</option>
+                    </select>
+
+                    <select id="filterEstadoRegistro" class="glass-input rounded-2xl px-3 py-2 text-xs font-semibold text-slate-700 cursor-pointer outline-none">
+                        <option value="">Todos los registros</option>
+                        <option value="Validado">Validado</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Rechazado">Rechazado</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Fila Inferior: VERIFICACIÓN Y FILTRADO POR FECHAS DE REGISTRO -->
+            <div class="bg-indigo-50/60 rounded-2xl p-3 sm:p-4 border border-indigo-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-2 font-bold text-indigo-900">
+                    <i class="fa-solid fa-calendar-days text-indigo-600 text-sm"></i>
+                    <span>Verificar Fechas de Registro:</span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <div class="flex items-center gap-1.5 bg-white px-3 py-1 rounded-xl border border-indigo-200">
+                        <span class="text-slate-500 font-semibold text-[11px]">Desde:</span>
+                        <input type="date" id="filterFechaDesde" class="outline-none text-slate-700 font-medium text-xs bg-transparent">
+                    </div>
+
+                    <div class="flex items-center gap-1.5 bg-white px-3 py-1 rounded-xl border border-indigo-200">
+                        <span class="text-slate-500 font-semibold text-[11px]">Hasta:</span>
+                        <input type="date" id="filterFechaHasta" class="outline-none text-slate-700 font-medium text-xs bg-transparent">
+                    </div>
+
+                    <!-- Botones de Acceso Rápido de Fechas -->
+                    <button type="button" onclick="setFiltroFecha('hoy')" class="bg-white hover:bg-indigo-100 text-indigo-700 px-2.5 py-1.5 rounded-xl font-bold border border-indigo-200 transition-colors">
+                        Hoy
+                    </button>
+                    <button type="button" onclick="setFiltroFecha('7dias')" class="bg-white hover:bg-indigo-100 text-indigo-700 px-2.5 py-1.5 rounded-xl font-bold border border-indigo-200 transition-colors">
+                        Últimos 7 días
+                    </button>
+                    <button type="button" onclick="setFiltroFecha('todos')" class="bg-white hover:bg-indigo-100 text-indigo-700 px-2.5 py-1.5 rounded-xl font-bold border border-indigo-200 transition-colors">
+                        Todas
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <!-- Orden de Fecha -->
+                    <select id="sortFecha" onchange="aplicarFiltrosLocales()" class="bg-white border border-indigo-200 rounded-xl px-2.5 py-1.5 text-xs font-bold text-indigo-900 cursor-pointer outline-none">
+                        <option value="desc">Más recientes primero ↓</option>
+                        <option value="asc">Más antiguos primero ↑</option>
+                    </select>
+
+                    <!-- Botón Exportar a Excel -->
+                    <button onclick="exportarExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition-colors shadow-sm">
+                        <i class="fa-solid fa-file-excel"></i> <span>Exportar Excel</span>
+                    </button>
+
+                    <!-- Refrescar -->
+                    <button onclick="cargarParticipantes()" class="bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded-xl text-xs transition-colors" title="Recargar">
+                        <i class="fa-solid fa-rotate"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Banner de Alertas -->
+        <div id="tableAlertBox" class="hidden p-4 rounded-2xl text-xs sm:text-sm font-bold shadow-sm"></div>
+
+        <!-- Tabla Interactiva: Hoja de Datos Oficial -->
+        <div class="glass-panel rounded-3xl overflow-hidden border border-white shadow-lg">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-700">
+                    <thead class="bg-indigo-50/80 text-indigo-950 uppercase tracking-wider font-extrabold border-b border-indigo-100 text-[11px]">
+                        <tr>
+                            <th class="py-4 px-4 font-heading"># ID</th>
+                            <th class="py-4 px-4 font-heading">Fecha Registro</th>
+                            <th class="py-4 px-4 font-heading">Maestro / Participante</th>
+                            <th class="py-4 px-4 font-heading">DNI / WhatsApp</th>
+                            <th class="py-4 px-4 font-heading">Iglesia / Cargo</th>
+                            <th class="py-4 px-4 font-heading">Modalidad</th>
+                            <th class="py-4 px-4 font-heading">Costo</th>
+                            <th class="py-4 px-4 font-heading">Pagado</th>
+                            <th class="py-4 px-4 font-heading">Deuda</th>
+                            <th class="py-4 px-4 font-heading">Estado Pago</th>
+                            <th class="py-4 px-4 font-heading">Estado Registro</th>
+                            <th class="py-4 px-4 font-heading">Vouchers</th>
+                            <th class="py-4 px-4 text-center font-heading">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaBody" class="divide-y divide-slate-100 bg-white/70">
+                        <tr>
+                            <td colspan="13" class="text-center py-12 text-slate-400">
+                                <i class="fa-solid fa-spinner animate-spin text-2xl mb-2 text-indigo-600"></i>
+                                <p class="font-bold">Cargando registros desde SQL Server...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Footer summary -->
+            <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-between items-center text-xs font-semibold text-slate-500">
+                <span id="rowCount">0 participantes</span>
+                <span class="flex items-center gap-1.5 text-indigo-600">
+                    <i class="fa-solid fa-server"></i>
+                    <span>Conexión activa: Microsoft SQL Server (CapacitacionDB)</span>
+                </span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal: Registrar Nueva Cuota -->
+    <div id="cuotaModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-8 animate-fade-in relative shadow-2xl border border-slate-100">
+            <button onclick="cerrarModalCuota()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <h3 class="text-xl font-black text-slate-800 font-heading mb-1">Registrar Cuota de Pago</h3>
+            <p class="text-xs text-slate-500 mb-4 font-medium" id="modalParticipanteNombre"></p>
+
+            <form id="cuotaForm" class="space-y-4">
+                <input type="hidden" id="cuotaParticipanteId">
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Monto a Pagar (S/) *</label>
+                    <input type="number" step="0.01" min="1" id="cuotaMonto" required placeholder="Ej. 15.00"
+                        class="glass-input w-full rounded-2xl px-4 py-2.5 text-sm font-bold text-slate-800 focus:ring-2 focus:ring-indigo-400">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Medio de Pago</label>
+                        <select id="cuotaMedioPago" class="glass-input w-full rounded-2xl px-3 py-2 text-xs font-semibold text-slate-800 bg-white">
+                            <option value="Yape">Yape</option>
+                            <option value="Plin">Plin</option>
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Transferencia BCP">Transferencia BCP</option>
+                            <option value="Transferencia BBVA">Transferencia BBVA</option>
+                            <option value="PayPal">PayPal</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Nro. Operación</label>
+                        <input type="text" id="cuotaOp" placeholder="Opcional"
+                            class="glass-input w-full rounded-2xl px-3 py-2 text-xs font-semibold text-slate-800">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Adjuntar Voucher (Opcional)</label>
+                    <input type="file" id="cuotaComprobante" accept="image/*,.pdf"
+                        class="glass-input w-full rounded-2xl px-3 py-2 text-xs text-slate-700 file:mr-2 file:py-1 file:px-2.5 file:rounded-xl file:border-0 file:text-xs file:bg-indigo-600 file:text-white file:font-bold cursor-pointer">
+                </div>
+
+                <button type="submit" id="btnGuardarCuota"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl transition-colors text-sm shadow-md shadow-indigo-600/20">
+                    Guardar Cuota en SQL Server
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Previsualizar Comprobante -->
+    <div id="voucherModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-2xl rounded-3xl p-6 animate-fade-in relative shadow-2xl border border-slate-100 flex flex-col max-h-[90vh]">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-base font-bold text-slate-800 font-heading" id="voucherModalTitle">Comprobante de Pago</h3>
+                <button onclick="cerrarModalVoucher()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="flex-1 overflow-auto flex items-center justify-center bg-slate-100 rounded-2xl p-2" id="voucherContainer">
+                <!-- Imagen o iframe -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-tabla.js"></script>
+</body>
+</html>
