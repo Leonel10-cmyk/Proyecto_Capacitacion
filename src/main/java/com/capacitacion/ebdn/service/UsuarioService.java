@@ -61,12 +61,23 @@ public class UsuarioService {
     }
 
     public Usuario registrarAdminSiNoExiste(String username, String rawPassword, String nombreCompleto, String correo) {
-        return usuarioRepository.findByUsername(username).orElseGet(() -> {
+        return usuarioRepository.findByUsername(username).map(existente -> {
+            if (rawPassword != null && !rawPassword.trim().isEmpty()) {
+                existente.setPassword(passwordEncoder.encode(rawPassword.trim()));
+            }
+            if (nombreCompleto != null && !nombreCompleto.trim().isEmpty()) {
+                existente.setNombreCompleto(nombreCompleto.trim());
+            }
+            if (correo != null && !correo.trim().isEmpty()) {
+                existente.setCorreo(correo.trim());
+            }
+            return usuarioRepository.save(existente);
+        }).orElseGet(() -> {
             Usuario u = new Usuario();
-            u.setUsername(username);
-            u.setPassword(passwordEncoder.encode(rawPassword));
-            u.setNombreCompleto(nombreCompleto);
-            u.setCorreo(correo);
+            u.setUsername(username.trim());
+            u.setPassword(passwordEncoder.encode(rawPassword.trim()));
+            u.setNombreCompleto(nombreCompleto != null ? nombreCompleto.trim() : "Administrador");
+            u.setCorreo(correo != null ? correo.trim() : "");
             u.setRol("ROLE_ADMIN");
             u.setActivo(true);
             return usuarioRepository.save(u);

@@ -4,6 +4,7 @@ import com.capacitacion.ebdn.entity.Pago;
 import com.capacitacion.ebdn.entity.Participante;
 import com.capacitacion.ebdn.repository.ParticipanteRepository;
 import com.capacitacion.ebdn.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,18 @@ public class DataInitializer implements CommandLineRunner {
     private final UsuarioService usuarioService;
     private final ParticipanteRepository participanteRepository;
 
+    @Value("${app.admin.username:admin}")
+    private String adminUsername;
+
+    @Value("${app.admin.password:admin123}")
+    private String adminPassword;
+
+    @Value("${app.admin.name:Administrador Principal}")
+    private String adminName;
+
+    @Value("${app.admin.email:admin@capacitacion.pe}")
+    private String adminEmail;
+
     public DataInitializer(UsuarioService usuarioService,
                            ParticipanteRepository participanteRepository) {
         this.usuarioService = usuarioService;
@@ -23,14 +36,14 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // 1. Crear usuario administrador por defecto si no existe
+        // 1. Crear o sincronizar usuario administrador según variables de entorno
         usuarioService.registrarAdminSiNoExiste(
-                "admin",
-                "admin123",
-                "Administrador Principal",
-                "admin@capacitacion.pe"
+                adminUsername,
+                adminPassword,
+                adminName,
+                adminEmail
         );
-        System.out.println("✅ Usuario administrador verificado en SQL Server: admin / admin123");
+        System.out.println("✅ Usuario administrador verificado en base de datos: " + adminUsername);
 
         // 2. Si la tabla de participantes está vacía, insertar un par de registros de demostración
         if (participanteRepository.count() == 0) {

@@ -71,10 +71,16 @@ set JWT_SECRET=pon-aqui-una-clave-larga-y-aleatoria-tuya
 ---
 
 ## 🔐 Credenciales del Administrador
-El sistema inicializa automáticamente la cuenta del administrador al arrancar:
-- **Usuario:** `admin`
-- **Contraseña:** `admin123`
-- **Rol:** `ROLE_ADMIN`
+El acceso del administrador se configura de forma segura mediante **Variables de Entorno** (especialmente en Render o producción):
+
+| Variable de Entorno | Valor por Defecto (Local) | Descripción |
+|---|---|---|
+| `ADMIN_USERNAME` | `admin` | Nombre de usuario del administrador |
+| `ADMIN_PASSWORD` | `admin123` | Contraseña del administrador |
+| `ADMIN_NAME` | `Administrador Principal` | Nombre completo visible en el panel |
+| `ADMIN_EMAIL` | `admin@capacitacion.pe` | Correo del administrador |
+
+> En producción o despliegue en Render, configura tus propias variables `ADMIN_USERNAME` y `ADMIN_PASSWORD` desde el panel de Variables de Entorno para mantener tus claves 100% privadas.
 
 ---
 
