@@ -76,8 +76,6 @@ El sistema inicializa automáticamente la cuenta del administrador al arrancar:
 - **Contraseña:** `admin123`
 - **Rol:** `ROLE_ADMIN`
 
-> ⚠️ Esta es una contraseña de demostración para el entorno académico. Si despliegas este proyecto públicamente, cámbiala antes de compartir el enlace.
-
 ---
 
 ## 🌐 Módulos y URLs del Sistema
@@ -122,7 +120,20 @@ mvn spring-boot:run
 
 ## 📸 Capturas de pantalla
 
-_Se agregarán aquí una vez subidas las imágenes a la carpeta `screenshots/`._
+### 1. Formulario de Inscripción Pública
+![Inscripción de Participantes](screenshots/01_registro_participante.png)
+
+### 2. Login de Administrador
+![Login Administrador](screenshots/02_login_admin.png)
+
+### 3. Hoja de Datos y Panel de Control de Participantes
+![Panel de Control de Participantes](screenshots/03_dashboard_participantes.png)
+
+### 4. Módulo de Conciliación de Pagos (Yape CSV)
+![Conciliación de Pagos Yape](screenshots/04_conciliacion_pagos.png)
+
+### 5. Control de Asistencia y Escáner QR
+![Check-in Asistencia QR](screenshots/05_asistencia_qr.png)
 
 ## 🎥 Demo en video
 
